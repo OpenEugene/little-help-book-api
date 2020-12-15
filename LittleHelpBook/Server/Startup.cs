@@ -20,7 +20,6 @@ namespace LittleHelpBook.Server
 
         public IConfiguration Configuration { get; }
 
-        readonly string specificOriginPolicy = "littlehelpbook";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -28,12 +27,10 @@ namespace LittleHelpBook.Server
         {
             services.AddCors(options =>
             {
-                options.AddPolicy(name: specificOriginPolicy,
+                options.AddDefaultPolicy(
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://littlehelpbook.com",
-                                                          "http://www.littlehelpbook.com",
-                                                          "http://little-help-book.netlify.app");
+                                      builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                                   });
             });
 
@@ -80,7 +77,7 @@ namespace LittleHelpBook.Server
 
             app.UseRouting();
 
-            app.UseCors(specificOriginPolicy);
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
