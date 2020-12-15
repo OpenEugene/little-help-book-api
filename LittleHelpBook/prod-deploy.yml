@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: web-server
-          image: mvpstudio/little-help-book:Sep19b
+          image: mvpstudio/little-help-book:Dec14
           resources:
             limits:
               cpu: 0.5
