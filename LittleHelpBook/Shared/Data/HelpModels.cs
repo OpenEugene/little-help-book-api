@@ -48,8 +48,19 @@ namespace LittleHelpBook.Shared.Data
         public string Email { get; set; }
         [JsonProperty("Hours of Operation")]
         public string Hours { get; set; }
+        [JsonProperty("Hours of Operation-ES")]
+        public string HoursSpanish { get; set; }
 
         public string Description { get; set; }
+
+        [JsonProperty("Description-ES")]
+        public string DescriptionSpanish { get; set; }
+        [JsonProperty("Wheelchair access (y)")]
+        public string Wheelchair { get; set; }
+        [JsonProperty("Language Help (y)")]
+        public string LanguageHelp { get; set; }
+
+        //public string City { get; set; }
     }
 
     public class Category : IAirtable
@@ -73,6 +84,12 @@ namespace LittleHelpBook.Shared.Data
         [JsonProperty("Name-ES")]
         public string NameSpanish { get; set; }
 
+    }
+
+    public class City : IAirtable
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 
     public class Alert : IAirtable

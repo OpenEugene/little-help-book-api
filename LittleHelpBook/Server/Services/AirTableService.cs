@@ -18,6 +18,7 @@ namespace LittleHelpBook.Server.Services
         private IEnumerable<Place> _places;  
         private IEnumerable<Category> _categories;
         private IEnumerable<Subcategory> _subcategories;
+        private IEnumerable<City> _cities;
         private IEnumerable<Alert> _alerts;
         private IEnumerable<Info> _infos;
 
@@ -74,6 +75,12 @@ namespace LittleHelpBook.Server.Services
             _subcategories ??= await GetSubcategoriesAsync();
 
             return _subcategories.FirstOrDefault(c => c.Id == id);
+        }
+
+        public async Task<IEnumerable<City>> GetCitiesAsync()
+        //public async Task<City> GetCitiesAsync()
+        {
+            return _cities ??= await GetTableAsync<City>("Cities");
         }
 
         public async Task<IEnumerable<Place>> GetPlacesPopulatedAsync()
@@ -153,6 +160,7 @@ namespace LittleHelpBook.Server.Services
          _subcategories = null;
          _alerts = null;
          _infos = null;
+         _cities = null;
         }
     }
 }
