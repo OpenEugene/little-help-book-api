@@ -18,6 +18,7 @@ namespace LittleHelpBook.Server.Services
         private IEnumerable<Place> _places;  
         private IEnumerable<Category> _categories;
         private IEnumerable<Subcategory> _subcategories;
+        private IEnumerable<CatSubcat> _catSubcats;
         private IEnumerable<City> _cities;
         private IEnumerable<Alert> _alerts;
         private IEnumerable<Info> _infos;
@@ -77,8 +78,19 @@ namespace LittleHelpBook.Server.Services
             return _subcategories.FirstOrDefault(c => c.Id == id);
         }
 
+        public async Task<IEnumerable<CatSubcat>> GetCatSubcatAsync()
+        {
+            return _catSubcats ??= await GetTableAsync<CatSubcat>("CatSubcats");
+        }
+
+        public async Task<CatSubcat> GetCatSubcatAsync(string id)
+        {
+            _catSubcats ??= await GetCatSubcatAsync();
+
+            return _catSubcats.FirstOrDefault(c => c.Id == id);
+        }
+
         public async Task<IEnumerable<City>> GetCitiesAsync()
-        //public async Task<City> GetCitiesAsync()
         {
             return _cities ??= await GetTableAsync<City>("Cities");
         }
@@ -118,6 +130,15 @@ namespace LittleHelpBook.Server.Services
                     }
 
                     place.Subcategories = null;
+                }
+                if (place.CatSubcats != null)
+                {
+                    foreach (var id in place.CatSubcats)
+                    {
+                        place.CatSubcatList.Add(await GetCatSubcatAsync(id));
+                    }
+
+                    place.CatSubcats = null;
                 }
                 if (place.Cities != null)
                 {
@@ -174,6 +195,7 @@ namespace LittleHelpBook.Server.Services
          _places = null;  
          _categories = null;
          _subcategories = null;
+         _catSubcats = null;
          _alerts = null;
          _infos = null;
          _cities = null;

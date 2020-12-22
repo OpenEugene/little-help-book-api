@@ -41,6 +41,10 @@ namespace LittleHelpBook.Shared.Data
         public string SubcategoryName => SubcategoryList?.FirstOrDefault()?.Name;
         public List<Subcategory> SubcategoryList { get; set; } = new List<Subcategory>();
 
+        [JsonProperty("CatSubcat")] public IEnumerable<string> CatSubcats { get; set; }
+        public string CatSubcatName => CatSubcatList?.FirstOrDefault()?.Name;
+        public List<CatSubcat> CatSubcatList { get; set; } = new List<CatSubcat>();
+
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         [JsonProperty("Web Address")]
@@ -60,9 +64,6 @@ namespace LittleHelpBook.Shared.Data
         public string Wheelchair { get; set; }
         [JsonProperty("Language Help (y)")]
         public string LanguageHelp { get; set; }
-
-        // Found this works by trial and error
-        //[JsonProperty("City")] public IEnumerable<string> City { get; set; }
 
         [JsonProperty("City")] public IEnumerable<string> Cities { get; set; }
         public string CityName => CityList?.FirstOrDefault()?.Name;
@@ -90,6 +91,16 @@ namespace LittleHelpBook.Shared.Data
         [JsonProperty("Name-ES")]
         public string NameSpanish { get; set; }
 
+    }
+
+    public class CatSubcat : IAirtable
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        [JsonProperty("Category")] public IEnumerable<string> CategoryId { get; set; }
+        [JsonProperty("Subcategory")] public IEnumerable<string> SubcategoryId { get; set; }
+        [JsonProperty("SubcategoryString")] public IEnumerable<string> SubcategoryString { get; set; }
+        [JsonProperty("Subcategory-ES")] public IEnumerable<string> SubcategoryNameSpanish { get; set; }
     }
 
     public class City : IAirtable
