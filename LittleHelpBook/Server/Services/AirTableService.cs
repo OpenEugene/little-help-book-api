@@ -83,6 +83,13 @@ namespace LittleHelpBook.Server.Services
             return _cities ??= await GetTableAsync<City>("Cities");
         }
 
+        public async Task<City> GetCityAsync(string id)
+        {
+            _cities ??= await GetCitiesAsync();
+
+            return _cities.FirstOrDefault(c => c.Id == id);
+        }
+
         public async Task<IEnumerable<Place>> GetPlacesPopulatedAsync()
         {
             if (_placesPop != null)
@@ -111,6 +118,15 @@ namespace LittleHelpBook.Server.Services
                     }
 
                     place.Subcategories = null;
+                }
+                if (place.Cities != null)
+                {
+                    foreach (var id in place.Cities)
+                    {
+                        place.CityList.Add(await GetCityAsync(id));
+                    }
+
+                    place.Cities = null; // remove from payload after hydration.
                 }
             }
             _placesPop = places.ToArray();

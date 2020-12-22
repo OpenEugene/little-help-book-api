@@ -36,6 +36,7 @@ namespace LittleHelpBook.Shared.Data
         [JsonProperty("Category")] public IEnumerable<string> Categories { get; set; }
         public string CategoryName => CategoryList?.FirstOrDefault()?.Name;
         public List<Category> CategoryList { get; set; } = new List<Category>();
+
         [JsonProperty("Subcategory")] public IEnumerable<string> Subcategories { get; set; }
         public string SubcategoryName => SubcategoryList?.FirstOrDefault()?.Name;
         public List<Subcategory> SubcategoryList { get; set; } = new List<Subcategory>();
@@ -60,7 +61,12 @@ namespace LittleHelpBook.Shared.Data
         [JsonProperty("Language Help (y)")]
         public string LanguageHelp { get; set; }
 
-        //public string City { get; set; }
+        // Found this works by trial and error
+        //[JsonProperty("City")] public IEnumerable<string> City { get; set; }
+
+        [JsonProperty("City")] public IEnumerable<string> Cities { get; set; }
+        public string CityName => CityList?.FirstOrDefault()?.Name;
+        public List<City> CityList { get; set; } = new List<City>();
     }
 
     public class Category : IAirtable
