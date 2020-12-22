@@ -36,9 +36,14 @@ namespace LittleHelpBook.Shared.Data
         [JsonProperty("Category")] public IEnumerable<string> Categories { get; set; }
         public string CategoryName => CategoryList?.FirstOrDefault()?.Name;
         public List<Category> CategoryList { get; set; } = new List<Category>();
+
         [JsonProperty("Subcategory")] public IEnumerable<string> Subcategories { get; set; }
         public string SubcategoryName => SubcategoryList?.FirstOrDefault()?.Name;
         public List<Subcategory> SubcategoryList { get; set; } = new List<Subcategory>();
+
+        [JsonProperty("CatSubcat")] public IEnumerable<string> CatSubcats { get; set; }
+        public string CatSubcatName => CatSubcatList?.FirstOrDefault()?.Name;
+        public List<CatSubcat> CatSubcatList { get; set; } = new List<CatSubcat>();
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }
@@ -48,8 +53,21 @@ namespace LittleHelpBook.Shared.Data
         public string Email { get; set; }
         [JsonProperty("Hours of Operation")]
         public string Hours { get; set; }
+        [JsonProperty("Hours of Operation-ES")]
+        public string HoursSpanish { get; set; }
 
         public string Description { get; set; }
+
+        [JsonProperty("Description-ES")]
+        public string DescriptionSpanish { get; set; }
+        [JsonProperty("Wheelchair access (y)")]
+        public string Wheelchair { get; set; }
+        [JsonProperty("Language Help (y)")]
+        public string LanguageHelp { get; set; }
+
+        [JsonProperty("City")] public IEnumerable<string> Cities { get; set; }
+        public string CityName => CityList?.FirstOrDefault()?.Name;
+        public List<City> CityList { get; set; } = new List<City>();
     }
 
     public class Category : IAirtable
@@ -73,6 +91,22 @@ namespace LittleHelpBook.Shared.Data
         [JsonProperty("Name-ES")]
         public string NameSpanish { get; set; }
 
+    }
+
+    public class CatSubcat : IAirtable
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        [JsonProperty("Category")] public IEnumerable<string> CategoryId { get; set; }
+        [JsonProperty("Subcategory")] public IEnumerable<string> SubcategoryId { get; set; }
+        [JsonProperty("SubcategoryString")] public IEnumerable<string> SubcategoryString { get; set; }
+        [JsonProperty("Subcategory-ES")] public IEnumerable<string> SubcategoryNameSpanish { get; set; }
+    }
+
+    public class City : IAirtable
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 
     public class Alert : IAirtable
